@@ -16,5 +16,5 @@ MYSQL_USER=<?php echo DB_USER; ?>
 
 MYSQL_PASSWORD=<?php echo DB_PASSWORD; ?>
 <?php
-file_put_contents("./.env/wplocal.env", ob_get_clean());
+file_put_contents("./.wplocal/wplocal.env", ob_get_clean());
 ?>
