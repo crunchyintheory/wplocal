@@ -8,7 +8,7 @@ sync:
 	sed -i '$$ d' ./.wplocal/wp-config.php
 	rsync -azv --chmod=Du=rwx,Dg=rwx,Do=rx,Fu=rw,Fg=rw,Fo=r --exclude={'cache/*','uploads/backup/*','updraft/*'} $(SSH_USER)@$(SSH_HOST):$(REMOTE_WEBROOT)/wp-content ./.wplocal/
 	docker run -u $(shell id -u):33 --rm -v $(shell pwd)/.wplocal/wp-content:/wp-content wordpress:$(WP_VERSION) chown -R $(shell id -u):33 /wp-content
-	docker run -u $(shell id -u):$(shell getent group docker | cut -d: -f3) --rm -v $(shell pwd)/.wplocal:/wplocal ghcr.io/crunchyintheory/wplocal:latest
+	docker run -u $(shell id -u):33 --rm -v $(shell pwd)/.wplocal:/wplocal ghcr.io/crunchyintheory/wplocal:latest
 	(source .wplocal/wplocal.env && ssh $(SSH_USER)@$(SSH_HOST) "mysqldump -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE > wplocal_dump.sql")
 	rsync -az $(SSH_USER)@$(SSH_HOST):wplocal_dump.sql ./.wplocal/dump.sql
 
