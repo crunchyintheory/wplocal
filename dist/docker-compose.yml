@@ -4,7 +4,7 @@ services:
     restart: always
     ports:
       - 80:80
-    env_file: ./.env/wplocal.env
+    env_file: ./.wplocal/wplocal.env
     environment:
       WORDPRESS_DB_HOST: db
     volumes:
@@ -14,7 +14,7 @@ services:
   db:
     image: mariadb:latest
     restart: always
-    env_file: ./.env/wplocal.env
+    env_file: ./.wplocal/wplocal.env
     environment:
       MARIADB_ROOT_PASSWORD: root
     volumes:
@@ -26,12 +26,12 @@ services:
     restart: always
     ports:
       - 8080:80
+    env_file: ./.wplocal/wplocal.env
     environment:
       UPLOAD_LIMIT: 314572800
       PMA_HOST: db
       PMA_USER: root
       PMA_PASSWORD: root
-    env_file: ./.env/wplocal.env
     
 volumes:
   mariadb:

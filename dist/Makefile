@@ -2,6 +2,7 @@ include ./.env/wplocal-personal.env
 SHELL=bash
 
 sync:
+	docker pull ghcr.io/crunchyintheory/wplocal-sync:latest
 	mkdir -p .wplocal
 	rsync -az $(SSH_USER)@$(SSH_HOST):$(REMOTE_WEBROOT)/wp-config.php ./.wplocal/wp-config.php
 	sed -i '$$ d' ./.wplocal/wp-config.php
