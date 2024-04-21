@@ -1,2 +1,2 @@
 build:
-	docker build -t ghcr.io/crunchyintheory/wplocal-sync:latest .
+	docker build -t ghcr.io/crunchyintheory/wplocal:latest .
