@@ -7,9 +7,11 @@ services:
     env_file: ./.wplocal/wplocal.env
     environment:
       WORDPRESS_DB_HOST: db
+      WORDPRESS_DEBUG: "true"
     volumes:
       - ./.wplocal/wp-content:/var/www/html/wp-content
       - .:/var/www/html/wp-content/themes/${THEME_NAME}
+      - sessions:/tmp
 
   db:
     image: mariadb:latest
@@ -35,3 +37,4 @@ services:
     
 volumes:
   mariadb:
+  sessions:
