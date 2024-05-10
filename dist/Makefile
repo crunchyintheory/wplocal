@@ -7,7 +7,6 @@ sync:
 	rsync -e 'ssh -p $(SSH_PORT)' $(SSH_USER)@$(SSH_HOST):$(REMOTE_WEBROOT)/wp-config.php ./.wplocal/wp-config.php
 	perl -p -e 's/(?:^|\@)(?:include|require)/\/\/\include/g' -i ./.wplocal/wp-config.php
 	rsync -azv --progress -e 'ssh -p $(SSH_PORT)' --chmod=Du=rwx,Dg=rwx,Do=rx,Fu=rw,Fg=rw,Fo=r --exclude={'cache/*','uploads/backup/*','updraft/*'} $(SSH_USER)@$(SSH_HOST):$(REMOTE_WEBROOT)/wp-content ./.wplocal/
-	docker run -u $(shell id -u):33 --rm -v $(shell pwd)/.wplocal/wp-content:/wp-content wordpress:$(WP_VERSION) chown -R $(shell id -u):33 /wp-content
 	docker run -u $(shell id -u):33 --rm -v $(shell pwd)/.wplocal:/wplocal ghcr.io/crunchyintheory/wplocal:latest
 	(source .wplocal/wplocal.env && ssh -p $(SSH_PORT) $(SSH_USER)@$(SSH_HOST) "mysqldump -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE > wplocal_dump.sql")
 	rsync --remove-source-files -e 'ssh -p $(SSH_PORT)' $(SSH_USER)@$(SSH_HOST):wplocal_dump.sql ./.wplocal/dump.sql

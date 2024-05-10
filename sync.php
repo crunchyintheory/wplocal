@@ -17,4 +17,7 @@ MYSQL_USER=<?php echo DB_USER; ?>
 MYSQL_PASSWORD=<?php echo DB_PASSWORD; ?>
 <?php
 file_put_contents("./wplocal/wplocal.env", ob_get_clean());
+
+exec("chgrp -R 33 /wplocal/wp-content");
+exec("chmod -R 775 /wplocal/wp-content");
 ?>
